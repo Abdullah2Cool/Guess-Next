@@ -63,12 +63,15 @@ async def homepage():
 
 @app.get("/getNext/{text}")
 async def date(text: str):
-    if len(text) == 0 or text == "DODO":
+    if len(text) == 0:
         return {"error": {"message": "Can't predict on empty string, enter something"}}
 
     try:
-        # mask the areas we want the model to predict with <mask>
-        text = text.strip() + " <mask>"
+        # fix the spaces
+        text = text.strip().replace("+", " ")
+
+        # mask the area we want the model to predict with <mask>
+        text = text + " <mask>"
 
         # transform input
         input_ids, mask_idx = encode(bert_tokenizer, text)
@@ -79,7 +82,8 @@ async def date(text: str):
 
         # extract the prediction corresponding to the masked word
         # take the toop 10 prediction and extract their index
-        prediction = prediction_all[0, mask_idx, :].topk(10).indices.tolist()
+        prediction = prediction_all[0, mask_idx, :].topk(
+            10, sorted=True).indices.tolist()
 
         # decode the prediction
         tokens = decode(bert_tokenizer, prediction)
@@ -88,8 +92,11 @@ async def date(text: str):
         if len(tokens) == 0:
             tokens = ['']
 
+        print(tokens)
+        nextWord = tokens[0]
+
         # return 1 of the words
-        return {"nextWord": tokens[0]}
+        return {"nextWord": nextWord}
 
     except Exception as e:
         print(e)

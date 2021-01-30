@@ -23,7 +23,6 @@
             <div class="container is-max-widescreen has-text-centered">
                 <h1 class="content has-text-centered is-large">Guess Next Word</h1>
                 <input v-model="input_text" class="input" type="text" placeholder="Start Typing...">
-                <!-- <button v-on:click="predictNext" class="button is-primary">Predict Next</button> -->
                 <div class="has-text-centered content is-medium">
                     <div v-if="input_text.length > 0">
                         <p>Next Word: {{next_word}}</p>
