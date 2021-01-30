@@ -2,7 +2,6 @@ aiofiles==0.5.0
 aniso8601==7.0.0
 async-exit-stack==1.0.1
 async-generator==1.10
-autopep8 @ file:///tmp/build/80754af9/autopep8_1596578164842/work
 cachetools==4.2.1
 certifi==2020.12.5
 cffi==1.14.4
@@ -54,7 +53,6 @@ sacremoses==0.0.43
 six==1.15.0
 starlette==0.13.6
 tokenizers==0.9.4
-toml @ file:///tmp/build/80754af9/toml_1592853716807/work
 torch==1.7.1
 torchaudio==0.7.2
 torchvision==0.8.2
