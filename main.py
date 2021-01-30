@@ -3,15 +3,16 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 
 import torch
-from transformers import BertTokenizer, BertForMaskedLM
+# from transformers import BertTokenizer, BertForMaskedLM
 import string
-
-from datetime import datetime
+import pickle
 
 
 def load_bert():
-    bert_tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-    bert_model = BertForMaskedLM.from_pretrained("bert-base-uncased").eval()
+    # bert_tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+    # bert_model = BertForMaskedLM.from_pretrained("bert-base-uncased").eval()
+    bert_tokenizer = pickle.load(open("bert_tokenizer.p", "rb"))
+    bert_model = pickle.load(open("bert_model.p", "rb"))
     return bert_tokenizer, bert_model
 
 
