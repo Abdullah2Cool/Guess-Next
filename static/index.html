@@ -17,6 +17,9 @@
     <!-- div to hold the app -->
     <div id="app">
         <h1>Guess Next Word</h1>
+        <input v-model="input_text">
+        <button v-on:click="predictNext">Predict Next</button>
+        <p>Next Word: {{next_word}}</p>
     </div>
     <!-- script containing app logic -->
     <script src="app.js"></script>
