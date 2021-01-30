@@ -34,9 +34,15 @@ def encode(tokenizer, text, add_special_tokens=True):
 
 
 def decode(tokenizer, pred):
-    # decode and return the prediction
-    token = ''.join(tokenizer.decode(pred[0]).split(" "))
-    return token
+    ignore_tokens = string.punctuation + '[PAD]'
+
+    tokens = []
+    for w in pred:
+        token = ''.join(tokenizer.decode(w).split())
+        if token not in ignore_tokens:
+            tokens.append(token.replace("##", ''))
+
+    return tokens
 
 
 bert_tokenizer, bert_model = load_bert()
@@ -72,12 +78,18 @@ async def date(text: str):
             prediction_all = bert_model(input_ids)[0]
 
         # extract the prediction corresponding to the masked word
-        # take the most likely prediction and extract it's index
-        prediction = prediction_all[0, mask_idx, :].topk(1).indices.tolist()
+        # take the toop 10 prediction and extract their index
+        prediction = prediction_all[0, mask_idx, :].topk(10).indices.tolist()
 
-        output = decode(bert_tokenizer, prediction)
+        # decode the prediction
+        tokens = decode(bert_tokenizer, prediction)
 
-        return {"nextWord": output}
+        # if there are no tokens returned (all punctuation and incoherent speech), return empty word
+        if len(tokens) == 0:
+            tokens = ['']
+
+        # return 1 of the words
+        return {"nextWord": tokens[0]}
 
     except Exception as e:
         print(e)
