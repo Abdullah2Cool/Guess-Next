@@ -92,7 +92,7 @@ async def date(text: str):
         if len(tokens) == 0:
             tokens = ['']
 
-        print(tokens)
+        # print(tokens)
         nextWord = tokens[0]
 
         # return 1 of the words
