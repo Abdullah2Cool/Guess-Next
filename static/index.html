@@ -9,6 +9,9 @@
     <meta name="description" content="Guess Next Word">
     <meta name="author" content="Abdullah Bin Asad">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
     <!-- load vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
@@ -16,10 +19,21 @@
 <body>
     <!-- div to hold the app -->
     <div id="app">
-        <h1>Guess Next Word</h1>
-        <input v-model="input_text">
-        <button v-on:click="predictNext">Predict Next</button>
-        <p>Next Word: {{next_word}}</p>
+        <div class="section">
+            <div class="container is-max-widescreen has-text-centered">
+                <h1 class="content has-text-centered is-large">Guess Next Word</h1>
+                <input v-model="input_text" class="input" type="text" placeholder="Start Typing...">
+                <!-- <button v-on:click="predictNext" class="button is-primary">Predict Next</button> -->
+                <div class="has-text-centered content is-medium">
+                    <div v-if="input_text.length > 0">
+                        <p>Next Word: {{next_word}}</p>
+                    </div>
+                    <div v-else>
+                        <p>Can't predict on empty text... enter something</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- script containing app logic -->
     <script src="app.js"></script>
